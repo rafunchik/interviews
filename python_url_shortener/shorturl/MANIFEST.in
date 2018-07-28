@@ -1,0 +1,2 @@
+recursive-include shorturl/templates *
+recursive-include shorturl/static *
