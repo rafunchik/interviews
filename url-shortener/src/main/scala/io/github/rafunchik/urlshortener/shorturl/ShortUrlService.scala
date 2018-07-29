@@ -50,18 +50,14 @@ class ShortUrlService[F[_]: Effect] extends Http4sDsl[F] {
       case request@POST -> Root / "shorten_url" =>
         import org.http4s.circe.CirceEntityDecoder._
 
-
         val response = request.as[OriginalUrlRequest].attempt.flatMap {
-          case Right(originalUrl) => {
+          case Right(originalUrl) =>
             shortUrlController.shortenUrl(originalUrl.url) match {
               case Right(shortenedUrl) => createdSuccessfully(shortenedUrl)
               case Left(e)             => internalServerError(e)
             }
-          }
           case Left(error) => badRequest(error)
         }
-
-
         response
 
       case (PUT | PATCH | DELETE) => MethodNotAllowed("Only GET with a url param and POST to shorten_url allowed")

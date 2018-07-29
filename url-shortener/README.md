@@ -7,6 +7,9 @@ Assumptions:
 - A valid url is what Uri.uri can parse (same as java.net.URI)
 
 
+
+
+
 Notes:
 
 - TODOS
@@ -21,6 +24,10 @@ Notes:
 - have janitor job to remove outdated items or use ttl directly like in redis
 - if it were an expensive process to generate url (e.g. dns etc), or storing it, make asynchronous, request gets into queue, 
   then processed by other job, and the user gets optionally notified.
+- Store page content too, separate repo and join data in the controller (perhaps can add summary to the object in memory). 
+
+
+
 
 Run:
 
@@ -34,4 +41,3 @@ Use cases:
 - Shortening a URL to a Short Url.
 - Redirecting to the URL associated with a Short Url.
 
-- Store page content too, separate repo and join data in the controller (perhaps can add summary to the object in memory). 

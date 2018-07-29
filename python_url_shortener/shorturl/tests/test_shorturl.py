@@ -1,40 +1,92 @@
 import unittest
 
-import shorturl
+from shorturl import app
+
 
 import os
 import tempfile
 
 import pytest
 
-from flaskr import flaskr
+from flask import request, jsonify
+
+SHORTEN_URL_ENDPOINT = '/shorten_url'
+
+
+
 
 @pytest.fixture
 def client():
-    db_fd, flaskr.app.config['DATABASE'] = tempfile.mkstemp()
-    flaskr.app.config['TESTING'] = True
-    client = flaskr.app.test_client()
-
-    with flaskr.app.app_context():
-        flaskr.init_db()
+    app.config['TESTING'] = True
+    client = app.test_client()
 
     yield client
 
-    os.close(db_fd)
-    os.unlink(flaskr.app.config['DATABASE'])
-
-class ShorturlTestCase(unittest.TestCase):
-
-    def setUp(self):
-        self.app = shorturl.app.test_client()
-
-    def test_index(self):
-        rv = self.app.get('/')
-        self.assertIn('Welcome to url_shortener', rv.data.decode())
 
 
-if __name__ == '__main__':
-    unittest.main()
+def test_root_url_produces_not_found(client):
+    """ A GET to / should return 404 """
+    # with app.test_client() as client:
+    response = client.get('/')
+    assert response.status_code == 404
+
+
+def test_get_not_found_url(client):
+    """ A GET to a not found short url should return 404 """
+    # with app.test_client() as client:
+    response = client.get('/unknown_short_url')
+    assert response.status_code == 404
+
+
+def test_malformed_json(client):
+    """Test status code 400 from malformed JSON on post to raw"""
+    response = client.post(SHORTEN_URL_ENDPOINT,
+                           data="This isn't a json... it's a string!",
+                           headers={'content-type':'application/json'})
+    assert response.status_code == 400
+
+
+def test_invalid_json(client):
+    """Test status code 400 from improper JSON on post to raw"""
+    response = client.post(SHORTEN_URL_ENDPOINT,
+                           data='{"not url": "www.bbc.com"}',
+                           headers={'content-type':'application/json'})
+    assert response.status_code == 400
+
+
+def test_wrong_url_format_json(client):
+    """Test status code 400 from improper JSON url on post to raw"""
+    response = client.post(SHORTEN_URL_ENDPOINT,
+                           data='{"url": "::/www.bbc.com"}',
+                           headers={'content-type':'application/json'})
+    assert response.status_code == 400
+
+
+def test_shorten_url_successfully(client):
+    """ A well formatted URL is shortened fine with a 201 status code"""
+    response = client.post(SHORTEN_URL_ENDPOINT,
+                           data='{"url": "www.helloworld.com"}',
+                           headers={'content-type':'application/json'})
+    json_data = response.get_json()
+    assert response.status_code == 201
+    # assert "xx" == json_data['shortened_url']
+
+
+
+
+
+# class ShorturlTestCase(unittest.TestCase):
+#
+#     def setUp(self):
+#         self.app = shorturl.app.test_client()
+#
+#     def test_index(self):
+#         rv = self.app.get('/')
+#         self.assertIn('Welcome to url_shortener', rv.data.decode())
+#
+#
+# if __name__ == '__main__':
+#     unittest.main()
 
 
 
@@ -89,11 +141,7 @@ if __name__ == '__main__':
 #       getResponse.headers.get(CaseInsensitiveString("Location")) must beSome[Header](Header("Location", "www.helloworld.com"))
 #     }
 #
-#     "should return 404 upon a GET with a not found short url" >> {
-#       val request = Request[IO](Method.GET, Uri.uri("/unknown_short_url"))
-#
-#       checkStatus(request, Status.NotFound)
-#     }
+
 #
 #     "should return 404 upon a POST to a wrong URL" >> {
 #       val request = Request[IO](Method.POST, Uri.uri("/shorten_url/xxx"))
