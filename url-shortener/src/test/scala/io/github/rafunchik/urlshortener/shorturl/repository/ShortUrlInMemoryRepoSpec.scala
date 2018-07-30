@@ -23,7 +23,7 @@ class ShortUrlInMemoryRepoSpec extends Specification {
       repo.get(short) must beNone
     }
 
-    "put and get a a short url- url pair" in {
+    "put and get the same short url - url pair" in {
       val repo = ShortUrlInMemoryRepo()
       val short = ShortenedUri("xcdcr53")
       val url = OriginalUri(Uri.uri("www.ibm.com"))

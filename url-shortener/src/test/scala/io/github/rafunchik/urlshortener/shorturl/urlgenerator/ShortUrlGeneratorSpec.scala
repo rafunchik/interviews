@@ -21,5 +21,10 @@ class ShortUrlGeneratorSpec extends Specification {
         }
       }
     }
+    "generate a String of a given number of alphanumerical" in {
+      val url = "www.google.com"
+      val generated = ShortUrlGenerator.generateString(url, length = 5)
+      generated.length must beEqualTo(5)
+    }
   }
 }

@@ -16,7 +16,6 @@ case class ShortenedUriDTO(private val url: String) {
 
 case class OriginalUriDTO(url: Uri)
 
-
 case class UrlGenerationTimeoutException(message: String) extends Exception
 
 case class ShortUrlController(repo: ShortUrlRepo, generator: UrlGenerator)
@@ -25,21 +24,7 @@ case class ShortUrlController(repo: ShortUrlRepo, generator: UrlGenerator)
   def shortenUrl(originalUrl: Uri)(implicit clock: Clock): Either[Throwable, ShortenedUriDTO] = {
     val originalUri = OriginalUri(originalUrl, Some(LocalDateTime.now(clock)))
 
-    var randomUrl = generator.generateString(originalUrl.toString())
-
-    var canPutUrl = false
-    //TODO make real timeout
-    breakable {
-      for (i <- 1 to 10) {
-        if (usedUrl(randomUrl)) {
-          randomUrl = generator.generateString(originalUrl.toString())
-        }
-        else {
-          canPutUrl = true
-          break
-        }
-      }
-    }
+    val (randomUrl: String, canPutUrl: Boolean) = tryToGenerateNewShortURL(originalUrl.toString())
 
     if (canPutUrl){
       repo.put(ShortenedUri(randomUrl), originalUri)
@@ -56,5 +41,24 @@ case class ShortUrlController(repo: ShortUrlRepo, generator: UrlGenerator)
 
   private def usedUrl(randomUrl: String): Boolean = {
     repo.get(ShortenedUri(randomUrl)).isDefined
+  }
+
+  private def tryToGenerateNewShortURL(originalUrl: String): (String, Boolean) = {
+    var randomUrl = generator.generateString(originalUrl)
+
+    var canPutUrl = false
+    //TODO make real timeout
+    breakable {
+      for (i <- 1 to 10) {
+        if (usedUrl(randomUrl)) {
+          randomUrl = generator.generateString(originalUrl)
+        }
+        else {
+          canPutUrl = true
+          break
+        }
+      }
+    }
+    (randomUrl, canPutUrl)
   }
 }

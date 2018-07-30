@@ -48,7 +48,6 @@ class ShortUrlControllerSpec extends Specification with Mockito with EitherMatch
 
     "shortenUrl try for a limited amount of time, and then timeout with an error" in {
       val shortUrl1 = "ckfpk34"
-      val shortUrl2 = "xcrw222"
       val uri = Uri.fromString(OriginalUrlStr).right.get
       val mockedRepo = mock[ShortUrlInMemoryRepo]
       val mockedUrlGenerator = mock[UrlGenerator]

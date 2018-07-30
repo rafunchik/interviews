@@ -16,7 +16,7 @@ object ShortUrlInMemoryRepo {
 
 case class ShortUrlInMemoryRepo(map: mutable.Map[ShortenedUri, OriginalUri]) extends ShortUrlRepo {
 
-  //TODO if we are going to partition by key, the key should be the hash
+  //if we are going to partition by key, the key could be the hash directly
   override def get(url: ShortenedUri): Option[OriginalUri] = map.get(url)
 
   override def put(url: ShortenedUri,
