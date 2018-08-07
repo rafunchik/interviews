@@ -16,7 +16,6 @@ object ListingsInMemoryRepository {
 
 case class ListingsInMemoryRepository(private val map: TrieMap[String, Listing]) extends ListingsRepository {
 
-  //TODO add id param?
   override def put(id: String, listing: Listing): Option[Listing] = map.put(id , listing)
 
   override def get(listingId: String): Option[Listing] = map.get(listingId)
