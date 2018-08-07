@@ -80,7 +80,7 @@ Notes:
 - Random UUIDS make collisions are highly unlikely, but there is a possibility, so introduced a timeout.
 - The app should scale using the in-memory repository, if this were not enough due to memory constraints, can use a 
   distributed sharded repository: hash key based. 
-- TODO: use an accumulating circe json decoder, which using ValidatedNEL cna show the user a list of possible errors in
+- TODO: use an accumulating circe json decoder, which using ValidatedNEL can show the user a list of possible errors in
   the json, rather than failing fast.
 - TODO: add more unit tests.
 - TODO: __state__ should be an Option of an enum as well.
