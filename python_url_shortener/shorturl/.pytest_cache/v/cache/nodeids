@@ -1,0 +1,9 @@
+[
+  "tests/test_max_sum.py::test_max_sum_walk",
+  "tests/test_shorturl.py::test_root_url_produces_not_found",
+  "tests/test_shorturl.py::test_get_not_found_url",
+  "tests/test_shorturl.py::test_malformed_json",
+  "tests/test_shorturl.py::test_invalid_json",
+  "tests/test_shorturl.py::test_wrong_url_format_json",
+  "tests/test_shorturl.py::test_shorten_url_successfully"
+]
