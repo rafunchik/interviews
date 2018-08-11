@@ -1,6 +1,5 @@
-package rcastro.wikiassistant.framework
+package rcastro.wikiassistant.framework.adapter
 
-import cats.effect._
 import cats.implicits._
 import rcastro.wikiassistant.domain.SQLStatementRepository
 import rcastro.wikiassistant.domain.model.Article

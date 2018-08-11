@@ -5,6 +5,8 @@ import org.http4s.dsl.Http4sDsl
 import org.http4s.{HttpService, Request, Response}
 import cats.implicits._
 import rcastro.wikiassistant.domain.model.Article
+import rcastro.wikiassistant.framework.adapter.{SQLStatementAdapter, TimedResult}
+import rcastro.wikiassistant.framework.repository.PostgresSQLStatementRepository
 
 
 

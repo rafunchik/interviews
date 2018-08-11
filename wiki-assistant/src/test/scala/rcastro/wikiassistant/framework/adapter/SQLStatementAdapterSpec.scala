@@ -1,7 +1,7 @@
-package rcastro.wikiassistant.framework
+package rcastro.wikiassistant.framework.adapter
 
-import org.specs2.mutable.Specification
 import org.specs2.mock.Mockito
+import org.specs2.mutable.Specification
 import rcastro.wikiassistant.domain.SQLStatementRepository
 import rcastro.wikiassistant.domain.model.{Article, SQLResultContainer}
 

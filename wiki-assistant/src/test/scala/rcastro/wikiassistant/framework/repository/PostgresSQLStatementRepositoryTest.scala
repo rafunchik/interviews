@@ -1,4 +1,4 @@
-package rcastro.wikiassistant.framework
+package rcastro.wikiassistant.framework.repository
 
 import org.specs2.mutable.Specification
 
