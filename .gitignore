@@ -1,4 +1,6 @@
 python_url_shortener/shorturl/python3env/lib/*
-python_url_shortener/.idea/
+python_url_shortener/.idea/*
 .DS_Store
 python_url_shortener/.DS_Store
+python_url_shortener/.pytest_cache/*
+python_url_shortener/shorturl/python3env/*

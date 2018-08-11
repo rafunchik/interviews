@@ -1,0 +1,7 @@
+[0m[[0m[0minfo[0m] [0m[0mWikiServiceSpec[0m
+[0m[[0m[0minfo[0m] [0m[0mWikiService[0m
+[0m[[0m[0minfo[0m] [0m[0m  [32m+[0m should return 200 when querying for the most outdated page in a category[0m
+[0m[[0m[0minfo[0m] [0m[0m  [32m+[0m should run a sql statement returning its result and timing[0m
+[0m[[0m[0minfo[0m] [0m[0mTotal for specification WikiServiceSpec[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mFinished in 2 seconds, 236 ms[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36m[0m[36m2 examples, 0 failure, 0 error[0m[0m

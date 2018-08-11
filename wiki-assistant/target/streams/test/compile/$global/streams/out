@@ -1,0 +1,6 @@
+[0m[[0m[31merror[0m] [0m[0m/Users/rafael.castro/dev/projects/interviews/wiki-assistant/src/test/scala/rcastro/wikiassistant/framework/WikiServiceSpec.scala:27:61: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : cats.effect.IO[org.http4s.Request[cats.effect.IO]][0m
+[0m[[0m[31merror[0m] [0m[0m required: org.http4s.Request[cats.effect.IO][0m
+[0m[[0m[31merror[0m] [0m[0m      val response = new WikiService[IO].service.orNotFound(request).unsafeRunSync()[0m
+[0m[[0m[31merror[0m] [0m[0m                                                            ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
