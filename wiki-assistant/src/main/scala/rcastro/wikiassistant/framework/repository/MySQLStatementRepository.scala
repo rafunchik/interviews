@@ -55,7 +55,7 @@ class MySQLStatementRepository() extends SQLStatementRepository {
 
     val result = runStatement(
       s"""select page_title
-         |from ( select p.page_id, p.page_title, p.rev_timestamp from wikipage p join categorylinks cl
+         |from ( select p.page_id, p.page_title from wikipage p join categorylinks cl
          |on p.page_id=cl.cl_from where cl.cl_to = '$category' ) as categorized inner join
          |(select p.page_id, max(ap.rev_timestamp - p.rev_timestamp) as max_modified from wikipage p join pagelinks l
          |on p.page_id=l.pl_from join wikipage ap on l.pl_title=ap.page_title group by p.page_id) as modified on
@@ -66,3 +66,4 @@ class MySQLStatementRepository() extends SQLStatementRepository {
 //      Article(modifiedArticle.title, modifiedArticle.modified.toString))
   }
 }
+
