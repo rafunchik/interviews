@@ -20,11 +20,16 @@ lazy val root = (project in file("."))
       "org.specs2"      %% "specs2-core"         % Specs2Version % "test",
       "org.specs2"      %% "specs2-analysis"     % Specs2Version % "test",
       "org.specs2"      %% "specs2-mock"         % Specs2Version % "test",
-"org.tpolecat" %% "doobie-core"      % "0.5.3",
-"org.tpolecat" %% "doobie-postgres"  % "0.5.3", // Postgres driver 42.2.2 + type mappings.
-"org.tpolecat" %% "doobie-specs2"    % "0.5.3", // Specs2 support for typechecking statements.
-"org.tpolecat" %% "doobie-scalatest" % "0.5.3"  // ScalaTest support for typechecking statements.
-    )
+      "org.http4s"      %% "http4s-twirl"        % Http4sVersion,
+      "org.tpolecat" %% "doobie-core"      % "0.5.3",
+      "org.tpolecat" %% "doobie-postgres"  % "0.5.3", // Postgres driver 42.2.2 + type mappings.
+      "org.tpolecat" %% "doobie-specs2"    % "0.5.3", // Specs2 support for typechecking statements.
+      "org.tpolecat" %% "doobie-scalatest" % "0.5.3",  // ScalaTest support for typechecking statements.
+      "mysql" % "mysql-connector-java" % "5.1.34"
+)
   )
+
+mainClass in assembly := Some("rcastro.wikiassistant.HelloWorldServer")
+test in assembly := {}
 
 addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full)
