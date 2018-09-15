@@ -57,8 +57,8 @@ class MySQLStatementRepository() extends SQLStatementRepository {
       s"""select page_title
          |from ( select p.page_id, p.page_title from wikipage p join categorylinks cl
          |on p.page_id=cl.cl_from where cl.cl_to = '$category' ) as categorized inner join
-         |(select p.page_id, max(ap.rev_timestamp - p.rev_timestamp) as max_modified from wikipage p join pagelinks l
-         |on p.page_id=l.pl_from join wikipage ap on l.pl_title=ap.page_title group by p.page_id) as modified on
+         |(select p.page_id, max(ap.rev_timestamp - p.rev_timestamp) as max_modified from wikipage p join newpagelinks l
+         |on p.page_id=l.ref_page_id join wikipage ap on l.link_title=ap.page_title group by p.page_id) as modified on
          |categorized.page_id = modified.page_id order by max_modified desc limit 1;""".stripMargin)
     result
 //    val result = statement.query[ModifiedArticle].option.transact(XA).unsafeRunSync
